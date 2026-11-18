@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدعم الفني والمساعدة - تطبيق بصائر (Support)</title>
+    <meta name="description" content="مركز الدعم الفني والمساعدة لتطبيق بصائر الإسلامي. تواصل مع المطور للاستفسارات والاقتراحات.">
+    <link rel="icon" type="image/png" href="assets/images/icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #06130e;
+            --bg-card: rgba(13, 38, 29, 0.75);
+            --gold-primary: #d4af37;
+            --gold-light: #f6e7b0;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --border-gold: rgba(212, 175, 55, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.8;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            padding-top: 100px;
+            background-image: radial-gradient(circle at 50% 10%, rgba(20, 65, 50, 0.4) 0%, transparent 60%);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            background: rgba(6, 19, 14, 0.9);
+            border-bottom: 1px solid var(--border-gold);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .brand img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border-gold);
+        }
+
+        .brand-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--gold-light);
+        }
+
+        .nav-back {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-gold);
+            border-radius: 24px;
+            padding: 45px 35px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--gold-light);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            color: var(--gold-light);
+            margin: 25px 0 12px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            padding-bottom: 6px;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+        }
+
+        .contact-box {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold-primary);
+            border-radius: 18px;
+            padding: 30px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .contact-box h3 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--gold-primary), #aa8522);
+            color: #06130e;
+            text-decoration: none;
+            font-weight: 800;
+            border-radius: 25px;
+            margin-top: 15px;
+            font-size: 1.05rem;
+            transition: transform 0.2s;
+        }
+
+        .contact-btn:hover {
+            transform: scale(1.04);
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 14px;
+        }
+
+        .faq-item strong {
+            color: var(--gold-light);
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1.1rem;
+        }
+
+        .en-box {
+            direction: ltr;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px dashed rgba(212, 175, 55, 0.3);
+        }
+
+        footer {
+            border-top: 1px solid var(--border-gold);
+            background: #040d0a;
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="assets/images/icon.png" alt="بصائر">
+                <span class="brand-name">بصائر - Basair</span>
+            </a>
+            <a href="index.html" class="nav-back">← العودة للرئيسية</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h1>الدعم الفني والمساعدة (Support)</h1>
+            <p>مرحباً بك في مركز الدعم الفني لتطبيق <strong>بصائر</strong>. نحن هنا لمساعدتك في الحصول على تجربة سلسة، ومستعدون للإجابة على استفساراتك أو تلقي اقتراحاتك لتطوير التطبيق.</p>
+
+            <div class="contact-box">
+                <h3>تواصل معنا مباشرة</h3>
+                <p>يمكنك مراسلتنا في أي وقت عبر البريد الإلكتروني وسيقوم فريق التطوير بالرد عليك في أقرب وقت:</p>
+                <a href="mailto:aiengamrkhaled@gmail.com?subject=دعم%20تطبيق%20بصائر" class="contact-btn">
+                    ✉️ مراسلة المطور: aiengamrkhaled@gmail.com
+                </a>
+            </div>
+
+            <h2>الأسئلة المتكررة والدعم السريع</h2>
+            
+            <div class="faq-item">
+                <strong>س: مواقيت الصلاة تختلف بدقائق عن مسجدي المحلي، كيف أضبطها؟</strong>
+                <p>ج: يمكنك من خلال إعدادات التطبيق اختيار طريقة الحساب المعتمدة في دولتك (مثل: الهيئة المصرية العامة للمساحة، أم القرى، رابطة العالم الإسلامي، وغيرها) ليتم ضبط التوقيت بالدقيقة تماماً.</p>
+            </div>
+
+            <div class="faq-item">
+                <strong>س: لم أعد أتلقى إشعارات الأذان، ما الحل؟</strong>
+                <p>ج: تأكد من إعدادات هاتفك (Settings -> Notifications) من منح تطبيق بصائر إذن الإشعارات وتشغيل الصوت وتفعيل خيار التنبيهات في شاشة القفل.</p>
+            </div>
+
+            <div class="faq-item">
+                <strong>س: بوصلة القبلة لا تتحرك أو تعطي اتجاهاً غير دقيق؟</strong>
+                <p>ج: تأكد من الابتعاد عن المجالات المغناطيسية أو المعادن القريبة، وقم بتحريك الهاتف على شكل رقم 8 في الهواء لمعايرة حساس البوصلة (Compass Calibration).</p>
+            </div>
+
+            <div class="en-box">
+                <h2 style="font-family:'Inter',sans-serif;">English Support Information</h2>
+                <p>For any technical inquiries, bug reports, or feature suggestions regarding the <strong>Basair</strong> app, please contact the developer directly at:</p>
+                <p><strong>Email:</strong> <a href="mailto:aiengamrkhaled@gmail.com" style="color:var(--gold-primary);">aiengamrkhaled@gmail.com</a><br>
+                <strong>Developer:</strong> Amr Khaled<br>
+                <strong>Supported Platforms:</strong> iOS (iPhone, iPad) and Android</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 بصائر (Basair) - جميع الحقوق محفوظة للمطور عمرو خالد (Amr Khaled).</p>
+    </footer>
+
+</body>
+</html>

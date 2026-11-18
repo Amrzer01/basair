@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق بصائر - رفيقك الإيماني اليومي</title>
+    <meta name="description" content="تطبيق بصائر هو رفيقك الإيماني اليومي المتكامل: مواقيت صلاة دقيقة، أذان، المصحف بالرسم العثماني، الأربعون النووية، أذكار حصن المسلم، مسبحة ذكية وبوصلة القبلة بدون إعلانات.">
+    <meta name="keywords" content="بصائر, قرآن, اذان, مواقيت الصلاة, قبلة, اذكار, تسبيح, حصن المسلم, الأربعون النووية, مصحف, basair">
+    <link rel="icon" type="image/png" href="assets/images/icon.png">
+    
+    <!-- Open Graph / Meta -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="بصائر - رفيقك الإيماني اليومي">
+    <meta property="og:description" content="تطبيق إسلامي ملكي فاخر بدون إعلانات. مواقيت الصلاة، القرآن الكريم، الأذكار، والمسبحة.">
+    <meta property="og:image" content="assets/images/banner.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #06130e;
+            --bg-secondary: #0b221a;
+            --bg-card: rgba(13, 38, 29, 0.7);
+            --gold-primary: #d4af37;
+            --gold-light: #f6e7b0;
+            --gold-dark: #aa8522;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-gold: rgba(212, 175, 55, 0.25);
+            --border-hover: rgba(212, 175, 55, 0.6);
+            --glow: 0 0 25px rgba(212, 175, 55, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(20, 65, 50, 0.35) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        /* Nav */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            background: rgba(6, 19, 14, 0.85);
+            border-bottom: 1px solid var(--border-gold);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: 1px solid var(--border-gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, var(--gold-light) 60%, var(--gold-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .btn-nav {
+            padding: 8px 18px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: #06130e !important;
+            font-weight: 700 !important;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 160px 20px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid var(--border-gold);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--gold-light);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1.25;
+            margin-bottom: 20px;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            line-height: 1.8;
+        }
+
+        .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .btn-store {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .btn-apple {
+            background: #ffffff;
+            color: #000000;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-apple:hover {
+            transform: translateY(-3px);
+            background: #f1f5f9;
+        }
+
+        .btn-google {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-gold);
+            color: var(--text-main);
+        }
+
+        .btn-google:hover {
+            background: rgba(212, 175, 55, 0.15);
+            transform: translateY(-3px);
+            border-color: var(--gold-primary);
+        }
+
+        .store-icon {
+            width: 28px;
+            height: 28px;
+        }
+
+        .store-subtext {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            display: block;
+            line-height: 1;
+        }
+
+        .store-maintext {
+            font-size: 1rem;
+            font-weight: 800;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .hero-trust {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-mockup {
+            position: relative;
+            text-align: center;
+        }
+
+        .mockup-main {
+            width: 100%;
+            max-width: 380px;
+            border-radius: 36px;
+            border: 8px solid #1a382d;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), var(--glow);
+            transform: perspective(1000px) rotateY(-4deg) rotateX(2deg);
+            transition: transform 0.5s ease;
+        }
+
+        .mockup-main:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+
+        /* Features */
+        .features {
+            padding: 90px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 60px;
+        }
+
+        .section-tag {
+            color: var(--gold-primary);
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-gold);
+            border-radius: 20px;
+            padding: 32px 28px;
+            transition: all 0.35s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-hover);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), var(--glow);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: rgba(212, 175, 55, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-gold);
+        }
+
+        .feature-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .feature-desc {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+
+        /* Showcase Carousel */
+        .showcase {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, transparent 0%, rgba(13, 38, 29, 0.5) 50%, transparent 100%);
+        }
+
+        .showcase-slider {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 10px 40px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .showcase-slider::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .showcase-slider::-webkit-scrollbar-thumb {
+            background: var(--gold-dark);
+            border-radius: 10px;
+        }
+
+        .slide-item {
+            flex: 0 0 240px;
+            scroll-snap-align: center;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .slide-item img {
+            width: 100%;
+            display: block;
+        }
+
+        .slide-item:hover {
+            transform: scale(1.05);
+            border-color: var(--gold-primary);
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-gold);
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 18px;
+        }
+
+        .faq-q {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--gold-light);
+            margin-bottom: 10px;
+        }
+
+        .faq-a {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* Contact & Support Section */
+        .support-cta {
+            padding: 90px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .support-box {
+            background: linear-gradient(135deg, rgba(13, 38, 29, 0.9), rgba(6, 19, 14, 0.95));
+            border: 1px solid var(--gold-primary);
+            border-radius: 28px;
+            padding: 50px 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6), var(--glow);
+        }
+
+        .support-box h2 {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+
+        .support-box p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.05rem;
+        }
+
+        .support-email-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 32px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: #06130e;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .support-email-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-gold);
+            background: #040d0a;
+            padding: 50px 20px 30px;
+            color: var(--text-muted);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 20px auto 0;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 120px;
+            }
+            .hero-badge, .cta-group, .hero-trust {
+                justify-content: center;
+            }
+            .hero-title {
+                font-size: 2.3rem;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="assets/images/icon.png" alt="بصائر">
+                <span class="brand-name">بصائر</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">المميزات</a></li>
+                <li><a href="#showcase">معرض التطبيق</a></li>
+                <li><a href="#faq">الأسئلة الشائعة</a></li>
+                <li><a href="support.html">الدعم الفني</a></li>
+                <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                <li><a href="#download" class="btn-nav">تحميل التطبيق</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>✨</span> رفيقك الإيماني اليومي المتكامل
+            </div>
+            <h1 class="hero-title">
+                عش مع القرآن والذكر <br>
+                <span>بكل طمأنينة ويسر</span>
+            </h1>
+            <p class="hero-desc">
+                تطبيق بصائر (Basair) هو تطبيق إسلامي ملكي فاخر، صُمم بعناية ليعينك على أداء عباداتك اليومية: مواقيت الصلاة والأذان، المصحف كاملاً بالرسم العثماني، الأربعون النووية، القبلة ثلاثية الأبعاد، والمسبحة الذكية – كل ذلك بدون أي إعلانات مزعجة.
+            </p>
+            <div class="cta-group" id="download">
+                <a href="https://apps.apple.com/app/id6836202262" class="btn-store btn-apple" target="_blank" rel="noopener">
+                    <svg class="store-icon" viewBox="0 0 170 170" fill="currentColor">
+                        <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.69-7.85-12.01-14.42-5.74-8.71-10.36-18.73-13.86-30.07-3.5-11.33-5.26-22.36-5.26-33.09 0-14.15 3.49-25.9 10.47-35.25 6.98-9.35 15.65-14.12 26.01-14.31 4.58 0 9.77 1.25 15.58 3.75 5.8 2.5 9.77 3.75 11.9 3.75 1.7 0 5.83-1.34 12.38-4.03 6.56-2.69 12.02-3.86 16.39-3.5 12.18.98 21.84 5.48 28.98 13.5-10.74 6.5-16.03 15.42-15.86 26.75.18 8.82 3.49 16.27 9.94 22.35 6.45 6.08 14.13 9.69 23.05 10.84-2.22 6.72-4.99 13.71-8.31 20.97zM119.22 31.84c0-7.39 2.65-14.17 7.95-20.35 5.3-6.17 11.83-9.92 19.59-11.23.23 1.06.35 2.1.35 3.11 0 7.39-2.76 14.33-8.29 20.82-5.53 6.49-12.13 10.23-19.8 11.22-.12-1.07-.18-2.13-.18-3.18z"/>
+                    </svg>
+                    <div>
+                        <span class="store-subtext">حمله الآن من</span>
+                        <span class="store-maintext">App Store</span>
+                    </div>
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.amr.Basair" class="btn-store btn-google" target="_blank" rel="noopener">
+                    <svg class="store-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+                    </svg>
+                    <div>
+                        <span class="store-subtext">متوفر على</span>
+                        <span class="store-maintext">Google Play</span>
+                    </div>
+                </a>
+            </div>
+            <div class="hero-trust">
+                <div class="trust-item">
+                    <span style="color: var(--gold-primary);">✔</span> مجاني بالكامل
+                </div>
+                <div class="trust-item">
+                    <span style="color: var(--gold-primary);">✔</span> بدون إعلانات نهائياً
+                </div>
+                <div class="trust-item">
+                    <span style="color: var(--gold-primary);">✔</span> حماية تامة للخصوصية
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-mockup">
+            <img src="assets/images/shot1.png" alt="واجهة تطبيق بصائر" class="mockup-main">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <div class="section-tag">مميزات لا غنى عنها</div>
+            <h2 class="section-title">كل ما يحتاجه المسلم في تطبيق واحد</h2>
+            <p class="section-desc">صُمم تطبيق بصائر بأعلى معايير الإتقان ليجمع بين جمال المظهر وسهولة الاستخدام ودقة البيانات المعتمدة.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <h3 class="feature-title">المصحف الشريف كاملاً</h3>
+                <p class="feature-desc">تصفح المصحف بالرسم العثماني المعتمد، مع بطاقة "أكمل القراءة" الذكية للحفظ التلقائي لآخر صفحة وسورة توقفت عندها لسهولة المتابعة.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🕌</div>
+                <h3 class="feature-title">مواقيت الصلاة والأذان</h3>
+                <p class="feature-desc">حساب دقيق لمواقيت الصلاة وفق موقعك الجغرافي وبطرق الحساب الرسمية المعتمدة عالمياً، مع تنبيهات مخصصة للأذان وشروق الشمس والضحى.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🧭</div>
+                <h3 class="feature-title">بوصلة القبلة ثلاثية الأبعاد</h3>
+                <p class="feature-desc">بوصلة بصرية تفاعلية تدلك بدقة متناهية على اتجاه الكعبة المشرفة في أي مكان حول العالم بالاعتماد على حساسات الهاتف الذكية.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📜</div>
+                <h3 class="feature-title">الأربعون النووية كاملة</h3>
+                <p class="feature-desc">قراءة الأحاديث النبوية الشريفة مع شرح معاني المفردات والفوائد العقدية والفقهية، بالإضافة إلى ميزة البحث الفوري بدون إنترنت.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📿</div>
+                <h3 class="feature-title">المسبحة الإلكترونية الذكية</h3>
+                <p class="feature-desc">مسبحة تفاعلية مع أصوات تسبيح واهتزاز هادئ وإحصائيات يومية لذكر الله، مع أذكار الصباح والمساء المأثورة من حصن المسلم.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3 class="feature-title">مشاركة الآيات كـ ستوري (9:16)</h3>
+                <p class="feature-desc">شارك الآيات الكريمة والأحاديث النبوية ببطاقات وتصاميم إسلامية راقية مخصصة لحالات الواتساب وإنستغرام لتنال أجر نشر الخير.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase Gallery -->
+    <section class="showcase" id="showcase">
+        <div class="section-header">
+            <div class="section-tag">معرض الشاشات</div>
+            <h2 class="section-title">تصميم إسلامي ملكي فاخر</h2>
+            <p class="section-desc">واجهات متناسقة وخطوط عربية أصيلة مريحة للعين وتدعم الوضع الليلي تلقائياً.</p>
+        </div>
+
+        <div class="showcase-slider">
+            <div class="slide-item"><img src="assets/images/shot1.png" alt="الرئيسية والمواقيت"></div>
+            <div class="slide-item"><img src="assets/images/shot2.png" alt="المصحف الشريف"></div>
+            <div class="slide-item"><img src="assets/images/shot3.png" alt="مشاركة ستوري"></div>
+            <div class="slide-item"><img src="assets/images/shot4.png" alt="بوصلة القبلة"></div>
+            <div class="slide-item"><img src="assets/images/shot5.png" alt="أذكار حصن المسلم"></div>
+            <div class="slide-item"><img src="assets/images/shot6.png" alt="المسبحة الإلكترونية"></div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="section-header">
+            <div class="section-tag">الأسئلة الشائعة</div>
+            <h2 class="section-title">إجابات على أكثر ما يشغل بالك</h2>
+        </div>
+
+        <div class="faq-item">
+            <h3 class="faq-q">هل تطبيق بصائر مجاني تماماً؟</h3>
+            <p class="faq-a">نعم، تطبيق بصائر مجاني بالكامل لوجه الله تعالى، ولا يحتوي على أي إعلانات تجارية مزعجة أو باقات مدفوعة.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3 class="faq-q">هل يحتاج التطبيق إلى اتصال دائم بالإنترنت؟</h3>
+            <p class="faq-a">لا، يعمل القرآن الكريم والأذكار والمسبحة والأربعون النووية وبوصلة القبلة بالكامل بدون إنترنت (Offline). يُطلب الإنترنت فقط لتحديث المواقيت عند تغيير المدينة.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3 class="faq-q">لماذا يطلب التطبيق إذن الموقع الجغرافي؟</h3>
+            <p class="faq-a">يُطلب إذن الموقع فقط لحساب مواقيت الصلاة المحلية بدقة عالية وتوجيه بوصلة القبلة نحو مكة المكرمة. لا يتم حفظ موقعك أو مشاركته مع أي طرف ثالث إطلاقاً.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3 class="faq-q">كيف أتواصل معكم إذا واجهت مشكلة؟</h3>
+            <p class="faq-a">نسعد دائماً بخدمتك عبر صفحة الدعم الفني أو عبر مراسلتنا مباشرة على بريد المطور: aiengamrkhaled@gmail.com.</p>
+        </div>
+    </section>
+
+    <!-- Support CTA Box -->
+    <section class="support-cta">
+        <div class="support-box">
+            <h2>هل تحتاج إلى مساعدة أو لديك اقتراح؟</h2>
+            <p>فريق تطوير "بصائر" حريص على تقديم أفضل تجربة إيمانية لك. راسلنا في أي وقت وسنكون سعداء بالرد عليك.</p>
+            <a href="mailto:aiengamrkhaled@gmail.com?subject=دعم%20تطبيق%20بصائر" class="support-email-btn">
+                <span>✉️</span> تواصل مع الدعم الفني: aiengamrkhaled@gmail.com
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="brand">
+                <img src="assets/images/icon.png" alt="بصائر" style="width:36px;height:36px;">
+                <span class="brand-name" style="font-size:1.25rem;">بصائر - Basair</span>
+            </div>
+            <ul class="footer-links">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="support.html">الدعم الفني (Support)</a></li>
+                <li><a href="privacy.html">سياسة الخصوصية (Privacy Policy)</a></li>
+                <li><a href="terms.html">شروط الاستخدام (Terms of Service)</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 تطبيق بصائر (Basair). جميع الحقوق محفوظة للمطور عمرو خالد (Amr Khaled).</p>
+        </div>
+    </footer>
+
+</body>
+</html>
