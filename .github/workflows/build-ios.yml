@@ -40,3 +40,4 @@ jobs:
         with:
           name: ComposeApp-release
           path: composeApp/build/bin/iosArm64/releaseFramework/ComposeApp.framework/ComposeApp
+# trigger build 6 v2
