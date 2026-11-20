@@ -1,0 +1,42 @@
+name: Build iOS Framework
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/build-ios.yml'
+
+jobs:
+  build-ios:
+    runs-on: macos-15
+    steps:
+      - name: Checkout Private Source
+        uses: actions/checkout@v4
+        with:
+          repository: Amrzer01/Sairt-iOS
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build iOS Release Framework
+        run: |
+          chmod +x gradlew
+          ./gradlew :composeApp:linkReleaseFrameworkIosArm64 \
+            -Dorg.gradle.jvmargs="-Xmx4800m -XX:+UseG1GC -Dfile.encoding=UTF-8" \
+            -Pkotlin.native.disableCompilerDaemon=true \
+            --max-workers=1
+          xcrun strip -x -S composeApp/build/bin/iosArm64/releaseFramework/ComposeApp.framework/ComposeApp || true
+          ls -lh composeApp/build/bin/iosArm64/releaseFramework/ComposeApp.framework/ComposeApp
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ComposeApp-release
+          path: composeApp/build/bin/iosArm64/releaseFramework/ComposeApp.framework/ComposeApp
