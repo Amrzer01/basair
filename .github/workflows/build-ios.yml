@@ -1,0 +1,61 @@
+name: Build iOS Framework
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/build-ios.yml'
+
+jobs:
+  build-ios:
+    runs-on: macos-15
+    steps:
+      - name: Checkout Private Source
+        uses: actions/checkout@v4
+        with:
+          repository: Amrzer01/Sairt-iOS
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build iOS Release Framework
+        run: |
+          chmod +x gradlew
+          ./gradlew :composeApp:linkReleaseFrameworkIosArm64 \
+            -Dorg.gradle.jvmargs="-Xmx4800m -XX:+UseG1GC -Dfile.encoding=UTF-8" \
+            -Pkotlin.native.disableCompilerDaemon=true \
+            --max-workers=1
+          xcrun strip -x -S composeApp/build/bin/iosArm64/releaseFramework/ComposeApp.framework/ComposeApp || true
+          mkdir -p out_release
+          cp composeApp/build/bin/iosArm64/releaseFramework/ComposeApp.framework/ComposeApp out_release/ComposeApp
+
+      - name: Generate Apple-Native CoreAudio Notification CAF Sounds
+        run: |
+          ADHAN_DIR="composeApp/src/commonMain/composeResources/files/adhan"
+          for name in azan minshawi abdulbaset mustafa; do
+            SRC="$ADHAN_DIR/${name}.mp3"
+            if [ -f "$SRC" ]; then
+              # Trim to 29 seconds max (Apple UNNotificationSound strict 30s limit) via ffmpeg if present or afconvert directly
+              if command -v ffmpeg >/dev/null 2>&1; then
+                ffmpeg -y -i "$SRC" -t 29 -ac 1 -ar 16000 -af "loudnorm=I=-12:TP=-1.0:LRA=7" "/tmp/${name}_29s.wav"
+                /usr/bin/afconvert -f caff -d ima4 -c 1 "/tmp/${name}_29s.wav" "out_release/${name}_notif.caf"
+              else
+                /usr/bin/afconvert -f caff -d ima4 -c 1 -r 16000 "$SRC" "out_release/${name}_notif.caf"
+              fi
+              afinfo "out_release/${name}_notif.caf" | head -n 12
+            fi
+          done
+          ls -lh out_release/
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ComposeApp-release
+          path: out_release/
